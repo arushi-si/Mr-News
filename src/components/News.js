@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import NewsItem from "./NewsItem";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { API_KEY } from "../../env";
 
 function News(props) {
   const [articles, setArticles] = useState([]);
   const [page, setPage] = useState(1);
   let baseURL = `
-  https://newsapi.org/v2/top-headlines?country=in&apiKey=${API_KEY}&category=${props.category}`;
+  https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.REACT_APP_API_KEY}&category=${props.category}`;
   const [url, setURL] = useState(baseURL.concat("&page=1"));
   const [totalArticles, setTotalArticles] = useState(0);
 
@@ -40,28 +39,27 @@ function News(props) {
   function fetchMoreData() {
     setPage((prev) => prev + 1);
     setURL(baseURL.concat(`&page=${page + 1}`));
-    console.log("chummted");
   }
 
-  function handleLog() {
-    console.log({
-      page,
-      url,
-      articles,
-      totalArticles,
-      value: articles.length !== totalArticles,
-    });
-  }
+  // function handleLog() {
+  //   console.log({
+  //     page,
+  //     url,
+  //     articles,
+  //     totalArticles,
+  //     value: articles.length !== totalArticles,
+  //   });
+  // }
 
   return (
     <div className="container my-4" style={{ width: "75%" }}>
       <h1 className="my-4" style={{ fontWeight: "bolder" }}>
         Top {capitalizeFirstLetter(props.category)} Headlines
       </h1>
-      <button onClick={handleLog}>Log</button>
+      {/* <button onClick={handleLog}>Log</button> */}
 
       <InfiniteScroll
-        dataLength={totalArticles}
+        dataLength={articles.length || 0}
         next={() => {
           console.log("yo");
           fetchMoreData();
