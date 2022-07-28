@@ -7,7 +7,7 @@ function Nav() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
-            News-Letter
+            Mr-News
           </a>
           <button
             className="navbar-toggler"
